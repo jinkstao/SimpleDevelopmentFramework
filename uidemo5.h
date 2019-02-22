@@ -8,17 +8,22 @@ namespace Ui {
 class UIDemo5;
 }
 
-class UIDemo5 : public QDialog
+class UIDemo5 : public QWidget
 {
     Q_OBJECT
+    Q_PROPERTY(bool max READ getMax WRITE setMax)
 
 public:
-    explicit UIDemo5(QWidget *parent = 0);
+    explicit UIDemo5(QWidget *parent = nullptr);
     ~UIDemo5();
+    void setMax(bool value);
+    bool getMax();
     
 private:
     void init();
+    void initMenu();
     void updateProjInfo();
+    void initForm();
 
 private:
     Ui::UIDemo5 *ui;
@@ -26,7 +31,6 @@ private:
     QRect location;
 
 private slots:
-    void initForm();
     void initIndex();
 
 private slots:

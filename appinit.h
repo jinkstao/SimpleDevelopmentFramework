@@ -9,25 +9,17 @@ class AppInit : public QObject
 {
     Q_OBJECT
 public:
-    explicit AppInit(QObject *parent = 0);
-    static AppInit *Instance() {
-        static QMutex mutex;
-        if (!self) {
-            QMutexLocker locker(&mutex);
-            if (!self) {
-                self = new AppInit;
-            }
-        }
-        return self;
+    static AppInit *Instance(QObject *parent = nullptr) {
+        static AppInit instance(parent);
+        return &instance;
     }
-
-    void start();
 
 protected:
     bool eventFilter(QObject *obj, QEvent *evt);
 
 private:
-    static AppInit *self;
+    //static AppInit *self;
+    explicit AppInit(QObject *parent = nullptr);
 
 signals:
 

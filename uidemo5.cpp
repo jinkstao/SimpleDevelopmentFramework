@@ -2,11 +2,11 @@
 #include "ui_uidemo5.h"
 #include "navlistview.h"
 #include "quiwidget.h"
-
+#include <QDebug>
 
 
 UIDemo5::UIDemo5(QWidget *parent) :
-    QDialog(parent),
+    QWidget(parent),
     ui(new Ui::UIDemo5)
 {
     ui->setupUi(this);
@@ -18,6 +18,15 @@ UIDemo5::~UIDemo5()
     delete ui;
 }
 
+void UIDemo5::setMax(bool value)
+{
+    max = value;
+}
+
+bool UIDemo5::getMax()
+{
+    return max;
+}
 
 void UIDemo5::init()
 {
@@ -75,7 +84,7 @@ void UIDemo5::updateProjInfo()
 
 void UIDemo5::initForm()
 {
-    this->max = false;
+    this->setMax(false);
     this->location = this->geometry();
     this->setProperty("form", true);
     this->setProperty("canMove", true);
@@ -118,16 +127,19 @@ void UIDemo5::on_btnMenu_Min_clicked()
 
 void UIDemo5::on_btnMenu_Max_clicked()
 {
+    qDebug() << max;
     if (max) {
-        this->setGeometry(location);
-        this->setProperty("canMove", true);
+        //this->setGeometry(location);
+        showNormal();
+        max = false;
+        //this->setProperty("canMove", true);
     } else {
         location = this->geometry();
-        this->setGeometry(qApp->desktop()->availableGeometry());
-        this->setProperty("canMove", false);
+        showMaximized();
+        max = true;
+        //this->setGeometry(qApp->desktop()->availableGeometry());
+        //this->setProperty("canMove", false);
     }
-
-    max = !max;
 }
 
 void UIDemo5::on_btnMenu_Close_clicked()
